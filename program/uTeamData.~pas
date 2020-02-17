@@ -1,0 +1,139 @@
+unit uTeamData;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, jpeg, ExtCtrls, pngimage, Buttons, Menus, DB,
+  DBTables, Grids, DBGrids, DBCtrls;
+
+type
+  TfTeamData = class(TForm)
+    Bg: TImage;
+    Panel1: TPanel;
+    LogoAp: TImage;
+    btExit: TBitBtn;
+    MainMenu1: TMainMenu;
+    Menu1: TMenuItem;
+    MenuUtama1: TMenuItem;
+    Exit1: TMenuItem;
+    MenuUtama2: TMenuItem;
+    DBTeam: TDBGrid;
+    TTeam: TTable;
+    DsTeam: TDataSource;
+    MatchdayData1: TMenuItem;
+    InputMatchdayData1: TMenuItem;
+    lblApp: TLabel;
+    Label1: TLabel;
+    DBNavigator1: TDBNavigator;
+    Logout1: TMenuItem;
+    btBack: TBitBtn;
+    About1: TMenuItem;
+    About2: TMenuItem;
+    procedure FormActivate(Sender: TObject);
+
+    procedure btExitClick(Sender: TObject);
+    procedure FormCanResize(Sender: TObject; var NewWidth,
+      NewHeight: Integer; var Resize: Boolean);
+    procedure MenuUtama2Click(Sender: TObject);
+    procedure MatchdayData1Click(Sender: TObject);
+    procedure InputMatchdayData1Click(Sender: TObject);
+    procedure Exit1Click(Sender: TObject);
+    procedure Logout1Click(Sender: TObject);
+    procedure btBackClick(Sender: TObject);
+    procedure About2Click(Sender: TObject);
+
+
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  fTeamData: TfTeamData;
+
+implementation
+
+uses uFormLogin, uInputMatch, uMatchData, uMenuUtama, uFormAbout;
+
+
+
+{$R *.dfm}
+
+procedure TfTeamData.FormActivate(Sender: TObject);
+var
+  hMenuHandle: HMENU;
+begin
+  hMenuHandle:= GetSystemMenu(fTeamData.Handle, FALSE);
+  if (hMenuHandle <> 0) then
+    DeleteMenu(hMenuHandle, SC_CLOSE, MF_BYCOMMAND);
+
+end;
+
+
+
+procedure TfTeamData.btExitClick(Sender: TObject);
+begin
+if(Application.MessageBox('Exit Program?','Confirmation',MB_YesNo)=ID_Yes) then
+ begin
+  Application.Terminate;
+ end;
+end;
+
+procedure TfTeamData.FormCanResize(Sender: TObject; var NewWidth,
+  NewHeight: Integer; var Resize: Boolean);
+begin
+resize:=false;
+end;
+
+
+
+
+procedure TfTeamData.MenuUtama2Click(Sender: TObject);
+begin
+fTeamData.Hide;
+fMenuUtama.Show;
+end;
+
+procedure TfTeamData.MatchdayData1Click(Sender: TObject);
+begin
+fTeamData.Hide;
+fMatchData.Show;
+end;
+
+procedure TfTeamData.InputMatchdayData1Click(Sender: TObject);
+begin
+fTeamData.Hide;
+fInputMatch.Show;
+end;
+
+
+
+procedure TfTeamData.Exit1Click(Sender: TObject);
+begin
+if(Application.MessageBox('Exit Program?','Confirmation',MB_YesNo)=ID_Yes) then
+ begin
+  Application.Terminate;
+ end;
+end;
+
+procedure TfTeamData.Logout1Click(Sender: TObject);
+begin
+fTeamData.Hide;
+fMenuUtama.btLogoutClick(sender);
+end;
+
+procedure TfTeamData.btBackClick(Sender: TObject);
+begin
+fTeamData.Hide;
+fMenuUtama.Show;
+end;
+
+procedure TfTeamData.About2Click(Sender: TObject);
+begin
+fAbout.Show;
+end;
+
+end.
